@@ -41,11 +41,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	/*Http通信でGet命令を指定のアドレスに行っている*/
 	//ランキングの更新
-	string  ans1 = HttpGet("mahiro.punyu.jp", "/dxlibRanking/updateRanking.php?name=testName&score=78");
+	string  ans1 = HttpGet("mahiro.punyu.jp", "/simpleRanking/updateRanking.php?name=testName&score=78");
 	//画面クリア
 	ClearDrawScreen();
 	//ランキングの取得
-	string  ans2 = HttpGet("mahiro.punyu.jp", "/dxlibRanking/getRanking.php");
+	string  ans2 = HttpGet("mahiro.punyu.jp", "/simpleRanking/getRanking.php");
 
 
 	WaitKey();// キー入力待ち
