@@ -5,11 +5,12 @@
 $db = new PDO('sqlite:ranking.db');
 
 /*Postで送信されたデータを受け取る*/
+$Table = $_POST['table'];
 $Name = $_POST['name'];
 $Score = $_POST['score'];
 
 /*テーブルのデータを取得*/
-$que ="SELECT * From Ranking";
+$que ="SELECT * From {$Table}";
 //連想配列にする
 $value = $db->query($que)->fetchAll();
 
@@ -30,7 +31,7 @@ arsort($arr);
 $cout =1;
 foreach($arr as $key => $temp)
 {
-    $que ="INSERT OR REPLACE INTO Ranking VALUES ({$cout},'{$key}',{$temp})";
+    $que ="INSERT OR REPLACE INTO {$Table} VALUES ({$cout},'{$key}',{$temp})";
     echo $que."\n";
     $db->query($que);
     $cout++;
