@@ -5,29 +5,44 @@ $sessionID="";
 session_start();
 
 /*クッキー*/
+echo "//クッキーの確認<br>";
 $backPage="";
 $sessionKey="";
 //クッキーの取り出し
+//backPage
 if(isset($_COOKIE["backPage"]))
 {
     //クッキーの値を取り出す
     $backPage = $_COOKIE["backPage"];
     //表示
-    echo "backPage:{$backPage}";
+    echo "backPage:{$backPage}<br>";
 }
+else
+{
+    //表示
+    echo "backPage:null<br>";
+}
+//sessionKey
 if(isset($_COOKIE["sessionKey"]))
 {
     //クッキーの値を取り出す
     $sessionKey = $_COOKIE["sessionKey"];
     //表示
-    echo "sessinoKey:{$backPage}";
+    echo "sessinoKey:{$sessionKey}<br>";
+}
+else
+{
+    //表示
+    echo "sessionKey:null<br>";
 }
 
 /*ログイン接続*/
+echo "//ログイン接続の確認<br>";
 $succesLogin = false;
 //ログイン接続かどうかの確認(ログインページ以外からは処理しない)
-if(isset($_POST["userID"]) && $backPage ==="LoginPage")//ログイン接続
+if(isset($_POST["userID"]) && $backPage ==="Login")//ログイン接続
 {
+    echo "ログイン処理を開始します。<br>";
     //ログイン処理
     $userID = $_POST["userID"];
     $userPass = $_POST["userPass"];
@@ -40,16 +55,17 @@ if(isset($_POST["userID"]) && $backPage ==="LoginPage")//ログイン接続
         //ログインそのものは成功
         echo "正常にログインできました。<br>";
         //セッションKeyの作成(本来は乱数を代入)
-        $result = setcookie("sessionKey", "ABCD1234");
+        $tempKey = "ABCD1234";
+        $result = setcookie("sessionKey", $tempKey);
         //クッキーの作成の確認
         if($result)
         {
+            echo "セッションキーを作成します。<br>";
             //セッションIDの作成(本来は乱数を代入)
-            $sessionKey = $_COOKIE["sessionKey"];
+            $sessionKey = $tempKey;
             $_SESSION[$sessionKey] = "1234ABCD";
             //セッションキー作成成功(ログイン成功)
             $succesLogin = true;
-            //echo $_COOKIE["sessionKey"] ."gege<br>";
         }
         else
         {
@@ -73,8 +89,13 @@ if(isset($_POST["userID"]) && $backPage ==="LoginPage")//ログイン接続
         echo "不正なアクセスです(ID,Passが間違っています)。<br>";
     }
 }
+else
+{
+    echo "ログイン接続ではありません<br>";
+}
 
 /*セッション接続*/
+echo "//セッション接続の確認<br>";
 $succesSession = false;
 //セッション接続かどうかの確認
 if(!$succesLogin)
@@ -98,6 +119,10 @@ if(!$succesLogin)
         echo "不正アクセス(正しくないセッションID)です。<br>";
         $succesSession = false;
     }
+}
+else
+{
+    echo "セッション接続ではありません。<br>";
 }
 ?>
 <!DOCTYPE html>
