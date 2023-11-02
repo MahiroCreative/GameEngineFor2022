@@ -12,11 +12,15 @@ if(isset($_COOKIE["backPage"]))
 {
     //クッキーの値を取り出す
     $backPage = $_COOKIE["backPage"];
+    //表示
+    echo "backPage:{$backPage}";
 }
 if(isset($_COOKIE["sessionKey"]))
 {
     //クッキーの値を取り出す
     $sessionKey = $_COOKIE["sessionKey"];
+    //表示
+    echo "sessinoKey:{$backPage}";
 }
 
 /*ログイン接続*/

@@ -13,13 +13,14 @@ if(isset($_COOKIE[session_name()]))
 session_destroy();//セッションの破棄
 
 /*クッキーの初期化*/
-$result = setcookie("backPage","",time()-3600);
-$result = setcookie("sessionKey","",time()-3600);
+$re1 = setcookie("backPage","",time()-3600);
+$re2 = setcookie("sessionKey","",time()-3600);
 
-
+/*クッキーの作成*/
+$re3 = setcookie("backPage","Login");
 
 /*ページの生成*/
-if($result)
+if($re1 && $re2 && $re3)
 {
     echo "
     <!DOCTYPE html>
