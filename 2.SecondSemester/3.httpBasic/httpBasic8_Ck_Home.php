@@ -8,6 +8,8 @@ session_start();
 echo "//クッキーの確認<br>";
 $backPage="";
 $sessionKey="";
+$isBackPage =false;
+$isSessionKey =false;
 //クッキーの取り出し
 //backPage
 if(isset($_COOKIE["backPage"]))
@@ -15,11 +17,13 @@ if(isset($_COOKIE["backPage"]))
     //クッキーの値を取り出す
     $backPage = $_COOKIE["backPage"];
     //表示
+    $isBackPage =true;
     echo "backPage:{$backPage}<br>";
 }
 else
 {
     //表示
+    $isBackPage =false;
     echo "backPage:null<br>";
 }
 //sessionKey
@@ -28,11 +32,13 @@ if(isset($_COOKIE["sessionKey"]))
     //クッキーの値を取り出す
     $sessionKey = $_COOKIE["sessionKey"];
     //表示
+    $isSessionKey=true;
     echo "sessinoKey:{$sessionKey}<br>";
 }
 else
 {
     //表示
+    $isSessionKey =false;
     echo "sessionKey:null<br>";
 }
 
@@ -98,7 +104,7 @@ else
 echo "//セッション接続の確認<br>";
 $succesSession = false;
 //セッション接続かどうかの確認
-if(!$succesLogin)
+if(!$succesLogin && $isBackPage && $isSessionKey)
 {
     //クッキーからセッションKeyの取得
     $sessionKey = $_COOKIE["sessionKey"];
