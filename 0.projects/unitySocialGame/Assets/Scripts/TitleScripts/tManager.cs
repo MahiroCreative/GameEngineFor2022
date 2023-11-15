@@ -1,115 +1,61 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-//ネットワーク用
-using System.Net;
-using UnityEngine.Networking;
 
 public class tManager : MonoBehaviour
 {
     //http用
     [SerializeField]
-    string _hostUrl = @"http://localhost/socialGame/";
+    private string _hostUrl = @"http://localhost/socialGame/";
+    public string HostUrl { get { return _hostUrl; } }
 
-    /*ゲームオブジェクト*/
-    GameObject _buttonBox;
-    GameObject _consoleBox;
-    GameObject _nameInput;
-    GameObject _postB;
-
-    /*コンポーネント*/
-    Image _consoleImage;
-    Image _retunBImage;
-    Text _consoleText;
-    Text _namuText;
-
+    /*ゲームオブジェクトの変数*/
+    [SerializeField]
+    public GameObject LoginBox, CreateBox, NoticeBox;
+    private GameObject _canvas, _buttonBox;
 
     private void Start()
     {
-        /*ゲームオブジェクト*/
+        /*ゲームオブジェクト取得*/
+        _canvas = GameObject.Find("Canvas");
         _buttonBox = GameObject.Find("buttonBox");
-        _consoleBox = GameObject.Find("consoleBox");
-        _nameInput = GameObject.Find("nameInput");
-        _postB = GameObject.Find("postB");
-
-        /*コンポーネント*/
-        _consoleImage = GameObject.Find("consoleImage").GetComponent<Image>();
-        _consoleText = GameObject.Find("consoleText").GetComponent<Text>();
-        _retunBImage = GameObject.Find("returnB").GetComponent<Image>();
-        _namuText = _nameInput.GetComponent<Text>();
-
-        /*初期化*/
-        _buttonBox.SetActive(true);
-        _consoleBox.SetActive(false);
-        _postB.SetActive(false);
-        _nameInput.SetActive(false);
     }
-
-
-    public void FixedUpdate()
-    {
-        /*テキストの更新*/
-        if (NetManager.s_httpResult != null)
-        {
-            _consoleText.text = NetManager.s_httpResult;
-        }
-
-
-
-    }
-
 
     /*ボタンメソッド*/
     public void LoginButton()
     {
-        _buttonBox.SetActive(false);
-        _consoleBox.SetActive(true);
-        _consoleText.text = "接続中です... 。";
-        _consoleImage.sprite = Resources.Load<Sprite>("consoleImageLogin");
-        _retunBImage.sprite = Resources.Load<Sprite>("returnImage");
+        /*プレハブの作成と初期化*/
+        GameObject tempObj = InstantiateuGUIBox(LoginBox, _canvas, "loginBox");
     }
     public void CreateButton()
     {
-        //UIセッティング
-        _buttonBox.SetActive(false);
-        _consoleBox.SetActive(true);
-        _nameInput.SetActive(true);
-        _consoleText.text = "接続中です... 。";
-        _consoleImage.sprite = Resources.Load<Sprite>("consoleImageCreate");
-        _retunBImage.sprite = Resources.Load<Sprite>("returnImage");
-
-        //ネットワーク接続
-        if(_nameInput)
-        {
-
-        }
+        /*プレハブの作成と初期化*/
+        GameObject tempObj = InstantiateuGUIBox(CreateBox, _canvas, "createBox");
 
     }
     public void NoticeButton()
     {
-        //UIセッティング
-        _buttonBox.SetActive(false);
-        _consoleBox.SetActive(true);
-        _consoleText.text = "接続中です... 。";
-        _consoleImage.sprite = Resources.Load<Sprite>("consoleImageNotice");
-        _retunBImage.sprite = Resources.Load<Sprite>("returnImage");
-
-        //ネットワーク接続
-        string passUrl = @"Notice.php";
-        StartCoroutine(NetManager.HttpGetEnumerable(_hostUrl, passUrl));
+        /*プレハブの作成と初期化*/
+        GameObject tempObj = InstantiateuGUIBox(NoticeBox,_canvas,"noticeBox");
     }
-    public void ReturnButton()
+
+    /*メソッド*/
+    /// <summary>
+    /// 【ユーザ定義】uGUI上にuiBOXを作成(create,login,notice).
+    /// </summary>
+    /// <param name="createObj">作成するオブジェクト</param>
+    /// <param name="parentObj">親オブジェクト</param>
+    /// <param name="objName">作成するオブジェクト名</param>
+    private GameObject InstantiateuGUIBox(GameObject createObj,GameObject parentObj,string objName)
     {
-        //UIセッティング
-        _buttonBox.SetActive(true);
-        _consoleBox.SetActive(false);
-        _nameInput.SetActive(false);
-
-        //接続結果をnullに戻す。
-        NetManager.s_httpResult = null;
+        //プレハブの作成
+        var tempObj = Instantiate(createObj);
+        //親オブジェクトの設定
+        tempObj.transform.SetParent(parentObj.transform);
+        //オブジェクトの名前を入力
+        tempObj.name = objName;
+        //作成したオブジェクトの位置
+        tempObj.GetComponent<RectTransform>().anchoredPosition= Vector3.zero;
+        //retrun
+        return tempObj;
     }
-
 }
