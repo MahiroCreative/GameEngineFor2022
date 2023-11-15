@@ -41,7 +41,7 @@ public class tNoticeBox : MonoBehaviour
     private void Update()
     {
         //テキストの更新
-        if (NetManager.s_httpResult!=null)
+        if (NetManager.s_httpResult != null)
         {
             _noticeText.text = NetManager.s_httpResult;
         }

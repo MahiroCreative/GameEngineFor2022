@@ -54,8 +54,8 @@ public static class NetManager
             //エラーが起きた場合はエラー内容を表示
             Debug.Log($"【エラー内容：】{getRequest.error}");
             Debug.Log($"【通信先(失敗)：】{getUrl}");
-            //結果をnullに
-            s_httpResult = getRequest.downloadHandler.text;
+            //接続が失敗したことを通知
+            s_httpResult = "接続が失敗しました。";
         }
     }
     /// <summary>
@@ -91,8 +91,8 @@ public static class NetManager
             //エラーが起きた場合はエラー内容を表示
             Debug.Log($"【エラー内容：】{postRequest.error}");
             Debug.Log($"【通信先(失敗)：】{postUrl}");
-            //結果をnullに
-            s_httpResult = postRequest.downloadHandler.text;
+            //接続が失敗したことを通知
+            s_httpResult = "接続が失敗しました。";
         }
     }
 }
