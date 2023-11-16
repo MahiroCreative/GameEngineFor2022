@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class tManager : MonoBehaviour
 {
@@ -13,11 +14,39 @@ public class tManager : MonoBehaviour
     public GameObject LoginBox, CreateBox, NoticeBox;
     private GameObject _canvas, _buttonBox;
 
+    /*コンポーネント変数*/
+    Text _userIdLabel;
+
+    /*変数*/
+    bool _isUserID = false;
+
     private void Start()
     {
+        /*Debug*/
+        PlayerPrefs.SetString("userID", "0001");
+        PlayerPrefs.SetString("userPass", "abcd");
+
         /*ゲームオブジェクト取得*/
         _canvas = GameObject.Find("Canvas");
         _buttonBox = GameObject.Find("buttonBox");
+
+        /*コンポーネントの取得*/
+        _userIdLabel = GameObject.Find("userIdLabel").GetComponent<Text>();
+
+        /*userIDの確認*/
+        var temp = PlayerPrefs.GetString("userID", String.Empty);
+        if (temp != string.Empty)
+        {
+            //IDがある場合
+            _userIdLabel.text = $"ID:{temp}";
+
+        }
+        else
+        {
+            //IDが無い場合
+            _userIdLabel.text = $"userID: none ID.";
+        }
+
     }
 
     /*ボタンメソッド*/

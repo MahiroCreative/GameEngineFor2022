@@ -32,6 +32,9 @@ public class tNoticeBox : MonoBehaviour
         /*buttonBox‚ğˆê“I‚ÉÁ‚·*/
         _buttonBox.SetActive(false);
 
+        /*text‚Ì‰Šú‰»*/
+        _noticeText.text = $"Ú‘±’†‚Å‚·...";
+
         /*Get’ÊM*/
         _passurl = @"Notice.php";
         StartCoroutine(NetManager.HttpGetEnumerable(_hostUrl, _passurl));
