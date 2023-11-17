@@ -12,12 +12,12 @@ public class myQ : MonoBehaviour
     void Start()
     {
         //回転角度(角速度でないことに注意)
-        _angle = 2 * Mathf.PI * 0.001f;//0.36度
+        _angle = 2 * Mathf.PI * 0.002f;//0.36度
 
         //回転軸の作成
         _axis = new Vector3(-1, 1, 1);
 
-        //回転軸を単位行列に直す(正規化する)
+        //回転軸を単位ベクトルに直す(正規化する)
         _axis.Normalize();
 
         //回転クォータニオンの作成

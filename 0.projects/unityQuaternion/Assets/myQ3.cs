@@ -37,12 +37,16 @@ public class myQ3 : MonoBehaviour
         transform.position = q * transform.position;
     }
 }
+
+/// <summary>
+/// 【ユーザ定義】クオータニオン型
+/// </summary>
 public struct MyQuaternion
 {
-    public float w,x, y, z;
+    public float w, x, y, z;
 
     /*コンストラクタ*/
-    public MyQuaternion(float x, float y, float z, float w)
+    public MyQuaternion(float w, float x, float y, float z)
     {
         this.w = w;
         this.x = x;
@@ -58,7 +62,7 @@ public struct MyQuaternion
 
         /*クオータニオンの掛け算*/
         //公式通りです。
-        tempQ.w = lQ.w*rQ.w - lQ.x*rQ.x - lQ.y*lQ.y - lQ.z*rQ.z;//実部
+        tempQ.w = lQ.w * rQ.w - lQ.x * rQ.x - lQ.y * lQ.y - lQ.z * rQ.z;//実部
         tempQ.x = lQ.w * rQ.x + lQ.x * rQ.w + lQ.y * rQ.z - lQ.z * rQ.y;//虚部x
         tempQ.y = lQ.w * rQ.y + lQ.y * rQ.w + lQ.z * rQ.x - lQ.x * rQ.z;//虚部y
         tempQ.z = lQ.w * rQ.z + lQ.z * rQ.w + lQ.x * rQ.y - lQ.y * rQ.x;//虚部z
@@ -79,8 +83,8 @@ public struct MyQuaternion
 
         //回転クォータニオンのインバースの作成
         //逆クォータニオンを出すのは大変なので、
-        //３次元だと同じ値になる共役クオータニオンで作成(虚部だけマイナス反転)
-        qInv = new MyQuaternion(-qRot.w, -qRot.x, -qRot.y, qRot.z);
+        //3次元だと同じ値になる共役クオータニオンで作成(虚部だけマイナス反転)
+        qInv = new MyQuaternion(qRot.w, -qRot.x, -qRot.y, -qRot.z);
 
         //回転後のクオータニオンの作成
         qPos = qRot * qPos * qInv;
