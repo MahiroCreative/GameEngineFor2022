@@ -24,7 +24,7 @@ public class myQ2 : MonoBehaviour
         //(w:実部 , ijk:虚部 とする)
         //n: ijk軸上の単位ベクトル(軸となるベクトル)
         //q = w cos(θ/2) + n sin(θ/2)
-        qRot.w = Mathf.Cos(_angle);//実部
+        qRot.w = Mathf.Cos(_angle / 2.0f);//実部
         qRot.x = _axis.x * Mathf.Sin(_angle / 2.0f);
         qRot.y = _axis.y * Mathf.Sin(_angle / 2.0f);
         qRot.z = _axis.z * Mathf.Sin(_angle / 2.0f);

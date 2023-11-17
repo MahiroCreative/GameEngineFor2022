@@ -25,14 +25,13 @@ public class myQ3 : MonoBehaviour
         //(w:実部 , ijk:虚部 とする)
         //n: ijk軸上の単位ベクトル(軸となるベクトル)
         //q = w cos(θ/2) + n sin(θ/2)
-        q.w = Mathf.Cos(_angle);//実部
-        q.x = _axis.x * Mathf.Sin(_angle);
-        q.y = _axis.y * Mathf.Sin(_angle);
-        q.z = _axis.z * Mathf.Sin(_angle);
+        q.w = Mathf.Cos(_angle / 2.0f);//実部
+        q.x = _axis.x * Mathf.Sin(_angle / 2.0f);
+        q.y = _axis.y * Mathf.Sin(_angle / 2.0f);
+        q.z = _axis.z * Mathf.Sin(_angle / 2.0f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         /*座標変換*/
         transform.position = q * transform.position;
@@ -55,9 +54,16 @@ public struct MyQuaternion
     //MyQuaternion * MyQuaternion
     public static MyQuaternion operator *(MyQuaternion lQ, MyQuaternion rQ)
     {
+        MyQuaternion tempQ;
 
+        /*クオータニオンの掛け算*/
+        //公式通りです。
+        tempQ.w = lQ.w*rQ.w - lQ.x*rQ.x - lQ.y*lQ.y - lQ.z*rQ.z;//実部
+        tempQ.x = lQ.w * rQ.x + lQ.x * rQ.w + lQ.y * rQ.z - lQ.z * rQ.y;//虚部x
+        tempQ.y = lQ.w * rQ.y + lQ.y * rQ.w + lQ.z * rQ.x - lQ.x * rQ.z;//虚部y
+        tempQ.z = lQ.w * rQ.z + lQ.z * rQ.w + lQ.x * rQ.y - lQ.y * rQ.x;//虚部z
 
-        return new MyQuaternion();
+        return tempQ;
     }
     //MyQuaternion * Vector3
     public static Vector3 operator *(MyQuaternion qRot, Vector3 right)
