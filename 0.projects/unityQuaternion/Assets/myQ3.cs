@@ -56,6 +56,7 @@ public struct MyQuaternion
     public static MyQuaternion operator *(MyQuaternion lQ, MyQuaternion rQ)
     {
 
+
         return new MyQuaternion();
     }
     //MyQuaternion * Vector3
